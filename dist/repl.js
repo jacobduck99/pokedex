@@ -1,5 +1,4 @@
-import { createInterface } from "node:readline";
-import { getCommands } from "./commands.js";
+import { initState } from "./state.js";
 export function cleanInput(input) {
     return input
         .toLowerCase()
@@ -8,13 +7,9 @@ export function cleanInput(input) {
         .filter(Boolean);
 }
 export function startREPL() {
-    const rl = createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        prompt: " ",
-    });
+    const state = initState();
+    const { rl, commands } = state;
     rl.prompt();
-    const commands = getCommands();
     rl.on("line", (line) => {
         const words = cleanInput(line);
         if (words.length === 0) {
@@ -29,10 +24,10 @@ export function startREPL() {
             return;
         }
         try {
-            handler.callback(commands);
+            handler.callback(state);
         }
         catch (e) {
-            console.log(e);
+            console.error(e);
         }
         rl.prompt();
     });

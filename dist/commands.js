@@ -2,15 +2,15 @@ import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
 export function getCommands() {
     return {
-        exit: {
-            name: "exit",
-            description: "Exits the pokedex",
-            callback: commandExit,
-        },
         help: {
             name: "help",
-            description: "",
+            description: "Displays a help message",
             callback: commandHelp,
+        },
+        exit: {
+            name: "exit",
+            description: "Exit the Pokedex",
+            callback: commandExit,
         },
         // can add more commands here
     };
