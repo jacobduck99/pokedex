@@ -1,5 +1,5 @@
 import { createInterface } from "node:readline";
-import { getCommands } from "./command_exit.js";
+import { getCommands } from "./commands.js";
 export function cleanInput(input) {
     return input
         .toLowerCase()

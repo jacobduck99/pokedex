@@ -1,5 +1,6 @@
 import { createInterface } from "node:readline";
-import { getCommands, commandExit } from "./command_exit.js";
+import {  commandExit } from "./command_exit.js";
+import { getCommands } from "./commands.js"; 
 
 export function cleanInput(input: string): string[] {
   return input
