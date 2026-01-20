@@ -1,4 +1,5 @@
 import { createInterface } from "node:readline";
+import { getCommands, commandExit } from "./command_exit.js";
 
 export function cleanInput(input: string): string[] {
   return input
@@ -16,7 +17,7 @@ export function startREPL() {
   });
 
   rl.prompt();
-
+    const commands = getCommands();
   rl.on("line", (line: string) => {
     const words = cleanInput(line);
 
@@ -24,7 +25,16 @@ export function startREPL() {
       rl.prompt();
       return;
     }
-    
+
+    const command = words[0];
+    const handler = commands[command];
+    if (!handler) { console.log("Unknown command"); 
+        rl.prompt(); 
+        return; 
+        }
+    try { handler.callback(commands);} 
+
+    catch (e) { console.log(e); }
 
     rl.prompt();
   });

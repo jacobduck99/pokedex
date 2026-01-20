@@ -1,4 +1,5 @@
 import { createInterface } from "node:readline";
+import { getCommands } from "./command_exit.js";
 export function cleanInput(input) {
     return input
         .toLowerCase()
@@ -13,13 +14,26 @@ export function startREPL() {
         prompt: " ",
     });
     rl.prompt();
+    const commands = getCommands();
     rl.on("line", (line) => {
         const words = cleanInput(line);
         if (words.length === 0) {
             rl.prompt();
             return;
         }
-        console.log(`Your command was: ${words[0]}`);
+        const command = words[0];
+        const handler = commands[command];
+        if (!handler) {
+            console.log("Unknown command");
+            rl.prompt();
+            return;
+        }
+        try {
+            handler.callback(commands);
+        }
+        catch (e) {
+            console.log(e);
+        }
         rl.prompt();
     });
 }
