@@ -1,4 +1,10 @@
+import { CLICommand } from "./command.js";
 
-export function commandHelp() {
-    console.log("\n Welcome to the Pokedex!\n Usage:\n\n help: Displays a help message\n exit: Exit the Pokedex");
+export function commandHelp(commands: Record<string, CLICommand>) {
+  console.log("Welcome to the Pokedex!");
+  console.log("Usage:\n");
+
+  for (const cmd of Object.values(commands)) {
+    console.log(`${cmd.name}: ${cmd.description}`);
+  }
 }
