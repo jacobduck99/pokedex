@@ -21,9 +21,18 @@ export class PokeAPI {
 export type ShallowLocations = {
     id: number;
     name: string;
+    gameIndex: number;
+    encounterMethodRates: string[];
+    location: NamedApiResource; 
+    names: string[];
+    pokemonEncounters: string[];
 };
 
 export type Location = {
     id: number;
     name: string;
+    region: NamedApiResource;
+    names: string[];
+    gameIndices: string[];
+    areas: NamedApiRescources;
 };
