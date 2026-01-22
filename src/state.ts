@@ -17,17 +17,17 @@ export type CLICommand = {
 };
 
 export function initState(): State {
-    const rl = createInterface({
+  const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
     prompt: "Pokedex > ",
-    });
+  });
 
-    const pokeAPI = new PokeAPI();
-    const nextLocationsURL = "";
-    const prevLocationsURL = "";
-
-    const commands = getCommands();
-
-  return { rl, commands, pokeAPI, nextLocationsURL, prevLocationsURL };
+  return {
+    rl,
+    commands: getCommands(),
+    pokeAPI: new PokeAPI(),
+    nextLocationsURL: "",
+    prevLocationsURL: "",
+  };
 }

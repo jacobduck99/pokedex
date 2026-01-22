@@ -7,9 +7,11 @@ export function initState() {
         output: process.stdout,
         prompt: "Pokedex > ",
     });
-    const pokeAPI = new PokeAPI();
-    const nextLocationsURL = "";
-    const prevLocationsURL = "";
-    const commands = getCommands();
-    return { rl, commands, pokeAPI, nextLocationsURL, prevLocationsURL };
+    return {
+        rl,
+        commands: getCommands(),
+        pokeAPI: new PokeAPI(),
+        nextLocationsURL: "",
+        prevLocationsURL: "",
+    };
 }
