@@ -2,44 +2,49 @@ import { Cache } from "./pokecache.js";
 
 export class PokeAPI {
   private static readonly baseURL = "https://pokeapi.co/api/v2";
+    private cache: Cache;
+    
+  constructor() {this.cache = new Cache(5000);}
+    
+    async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
+        const url = pageURL || `${PokeAPI.baseURL}/location-area`; 
+        const cached = this.cache.get<ShallowLocations>(url);
+        if (cached){ return cached };
 
-  constructor() {}
+        try {
+            const resp = await fetch(url);
 
-  async fetchLocations(pageURL?: string): Promise<ShallowLocations> {
-    const url = pageURL || `${PokeAPI.baseURL}/location-area`;
+            if (!resp.ok) { 
+                throw new Error(`${resp.status} ${resp.statusText}`);
+              }
 
-    try {
-      const resp = await fetch(url);
-
-      if (!resp.ok) {
-        throw new Error(`${resp.status} ${resp.statusText}`);
-      }
-
-      const locations: ShallowLocations = await resp.json();
-      return locations;
-    } catch (e) {
-      throw new Error(`Error fetching locations: ${(e as Error).message}`);
-    }
+                const locations: ShallowLocations = await resp.json();
+                this.cache.add(url, locations);
+                return locations;
+            } catch (e) {
+              throw new Error(`Error fetching locations: ${(e as Error).message}`);
+            }
   }
 
   async fetchLocation(locationName: string): Promise<Location> {
     const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
-
+    const cached = this.cache.get<Location>(url);
     try {
-      const resp = await fetch(url);
+        const resp = await fetch(url);
 
-      if (!resp.ok) {
-        throw new Error(`${resp.status} ${resp.statusText}`);
+        if (!resp.ok) {
+            throw new Error(`${resp.status} ${resp.statusText}`);
+          }
+
+            const location: Location = await resp.json();
+            this.cache.add(url, location);
+            return location;
+        } catch (e) {
+          throw new Error(
+            `Error fetching location '${locationName}': ${(e as Error).message}`,
+          );
+        }
       }
-
-      const location: Location = await resp.json();
-      return location;
-    } catch (e) {
-      throw new Error(
-        `Error fetching location '${locationName}': ${(e as Error).message}`,
-      );
-    }
-  }
 }
 
 export type ShallowLocations = {
