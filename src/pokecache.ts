@@ -15,3 +15,12 @@ export class Cache {
 
       this.#cache.set(key, entry);
     }
+
+    get<T>(key: string): T | undefined {
+        const entry = this.#cache.get(key); 
+        if (!entry) {
+            return undefined;
+        } 
+        return entry.val as T;
+    }
+}
