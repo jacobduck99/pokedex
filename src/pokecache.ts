@@ -9,6 +9,11 @@ export class Cache {
     #reapIntervalId: NodeJS.Timeout | undefined = undefined;
     #interval: number;
 
+  constructor(interval: number) {
+    this.#interval = interval;
+    this.#startReapLoop();
+  }
+
     add<T>(key: string, val: T) {
       const entry: CacheEntry<T> = {
         createdAt: Date.now(),
@@ -34,4 +39,15 @@ export class Cache {
                 this.#cache.delete(key);            }
         }
     }
+
+    #startReapLoop() {
+      const intervalId = setInterval(() => this.#reap(), this.#interval);
+      this.#reapIntervalId = intervalId;
+    }
+
+    stopReapLoop() {
+        if (!this.#reapIntervalId) return;
+        clearInterval(this.#reapIntervalId);
+        this.#reapIntervalId = undefined;
+    }}
 }
