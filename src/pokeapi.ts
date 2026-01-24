@@ -49,6 +49,7 @@ export class PokeAPI {
   async fetchPokemon(pokemonName: string): Promise<Pokemon> {
     const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`
     const cached = this.cache.get<Pokemon>(url);
+    if (cached) { return cached};
     try {
         const resp = await fetch(url);
 
@@ -134,4 +135,8 @@ export type Pokemon = {
     id: number;
     name: string;
     base_experience: number;
+    height: number;
+    weight: number;
+    stats: string[];
+    types: string[];
 };

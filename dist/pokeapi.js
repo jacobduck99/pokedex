@@ -42,6 +42,10 @@ export class PokeAPI {
     async fetchPokemon(pokemonName) {
         const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`;
         const cached = this.cache.get(url);
+        if (cached) {
+            return cached;
+        }
+        ;
         try {
             const resp = await fetch(url);
             if (!resp.ok) {
