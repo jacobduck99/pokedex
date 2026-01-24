@@ -25,6 +25,7 @@ export function startREPL() {
     }
 
     const command = words[0];
+    const args = words.slice(1);
     const handler = commands[command];
 
     if (!handler) {
@@ -34,7 +35,7 @@ export function startREPL() {
     }
 
     try {
-      handler.callback(state);
+      handler.callback(state, ...args);
     } catch (e) {
       console.error(e);
     }

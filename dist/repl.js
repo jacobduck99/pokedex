@@ -17,6 +17,7 @@ export function startREPL() {
             return;
         }
         const command = words[0];
+        const args = words.slice(1);
         const handler = commands[command];
         if (!handler) {
             console.log("Unknown command");
@@ -24,7 +25,7 @@ export function startREPL() {
             return;
         }
         try {
-            handler.callback(state);
+            handler.callback(state, ...args);
         }
         catch (e) {
             console.error(e);
