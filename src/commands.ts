@@ -31,5 +31,10 @@ export function getCommands(): Record<string, CLICommand> {
         description: "Explore location",
         callback: commandExplore,
         },
+    explore: {
+        name: "catch",
+        description: "Catch pokemon",
+        callback: commandCatch,
+        },
   };
 }
