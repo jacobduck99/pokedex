@@ -25,7 +25,7 @@ export function getCommands(): Record<string, CLICommand> {
         callback: commandMap,
         },
     mapb: {
-        name: "mapback",
+        name: "mapb",
         description: "Go back",
         callback: commandMapB,
         },
@@ -41,12 +41,12 @@ export function getCommands(): Record<string, CLICommand> {
         },
     inspect: {
         name: "inspect",
-        description: "inspect pokemon",
+        description: "Inspect your caught pokemon",
         callback: commandInspect,
         },
     pokedex: {
         name: "pokedex",
-        description: "caught pokemon",
+        description: "list of caught pokemon",
         callback: commandPokedex,
         },
   };
