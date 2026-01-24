@@ -13,5 +13,6 @@ export function initState() {
         pokeAPI: new PokeAPI(),
         nextLocationsURL: "",
         prevLocationsURL: "",
+        pokedex: {},
     };
 }
