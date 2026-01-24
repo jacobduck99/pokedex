@@ -3,6 +3,7 @@ import { commandHelp } from "./command_help.js";
 import { commandMap, commandMapB } from "./command_map.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
+import { commandInspect } from "./command_inspect.js";
 export function getCommands() {
     return {
         help: {
@@ -34,6 +35,11 @@ export function getCommands() {
             name: "catch",
             description: "Catch pokemon",
             callback: commandCatch,
+        },
+        inspect: {
+            name: "inspect",
+            description: "inspect pokemon",
+            callback: commandInspect,
         },
     };
 }
