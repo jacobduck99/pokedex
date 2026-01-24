@@ -4,13 +4,21 @@ export async function commandInspect(state: State, ...args: string[]) {
     const pokemonName = args[0];
     const caughtPokemon = state.pokedex[pokemonName];
 
-    if (!caughtPokemon) { console.log("This pokemon not caught")}; 
+    if (!caughtPokemon) { console.log("you have not caught that pokemon") 
+        return;
+    }; 
     
     console.log("Name:", caughtPokemon.name); 
-    console.log("Base experience:", caughtPokemon.base_experience); 
     console.log("Height:", caughtPokemon.height); 
     console.log("Weight:", caughtPokemon.weight); 
-    console.log("Stats:", caughtPokemon.stats.base_stats); 
-    console.log("Types:", caughtPokemon.types); 
+    console.log("Types:");
+    for (const t of caughtPokemon.types) {
+    console.log(`- ${t.type.name}`);
+    }
+
+    console.log("Stats:");
+    for (const s of caughtPokemon.stats) {
+    console.log(`- ${s.stat.name}: ${s.base_stat}`);
+    }
 }
 

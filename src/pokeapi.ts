@@ -137,6 +137,19 @@ export type Pokemon = {
     base_experience: number;
     height: number;
     weight: number;
-    stats: string[];
-    types: string[];
+    stats: {
+        base_stat: number;
+        effort: number;
+        stat: {
+            name: string;
+            url: string;
+    }
+    }[];
+    types: {
+        slot: number;
+        type: {
+            name: string;
+            url: string;
+        }
+    }[];
 };
