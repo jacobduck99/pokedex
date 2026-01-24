@@ -8,6 +8,7 @@ export type State = {
     pokeAPI: PokeAPI;
     nextLocationsURL: string;
     prevLocationsURL: string; 
+    pokedex: Record<string, Pokemon>
 };
 
 export type CLICommand = {
